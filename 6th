@@ -1,0 +1,30 @@
+#include<stdio.h>
+
+void main()
+{
+    int n, m, i, j;
+    int p[10], w[10], v[20][20] = {0};
+
+    printf("\nDynamic Knapsack\n");
+    printf("Enter the no of elements and capacity of knapsack:\n");
+    scanf("%d%d", &n, &m);
+
+    printf("Enter profit and weight:\n");
+    for(i = 1; i <= n; i++)
+        scanf("%d%d", &p[i], &w[i]);
+
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= m; j++)
+        {
+            if(w[i] > j)
+                v[i][j] = v[i-1][j];
+            else if(v[i-1][j] > (p[i] + v[i-1][j-w[i]]))
+                v[i][j] = v[i-1][j];
+            else
+                v[i][j] = p[i] + v[i-1][j-w[i]];
+        }
+    }
+
+    printf("\nMaximum profit using dynamic knapsack: %d", v[n][m]);
+}
