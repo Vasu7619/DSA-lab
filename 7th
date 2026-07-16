@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void main()
+{
+    int n, m, i, j;
+    float r[10], profit = 0;
+    float w[10], p[10], temp;
+
+    printf("\nGreedy Knapsack\n");
+    printf("Enter number of elements and capacity of knapsack: ");
+    scanf("%d%d", &n, &m);
+
+    printf("Enter profit and weight:\n");
+    for(i = 0; i < n; i++)
+    {
+        scanf("%f%f", &p[i], &w[i]);
+        r[i] = p[i] / w[i];
+    }
+
+    for(i = 0; i < n - 1; i++)
+    {
+        for(j = 0; j < n - 1 - i; j++)
+        {
+            if(r[j] < r[j + 1])
+            {
+                temp = r[j];
+                r[j] = r[j + 1];
+                r[j + 1] = temp;
+
+                temp = w[j];
+                w[j] = w[j + 1];
+                w[j + 1] = temp;
+
+                temp = p[j];
+                p[j] = p[j + 1];
+                p[j + 1] = temp;
+            }
+        }
+    }
+
+    for(i = 0; i < n; i++)
+    {
+        if(w[i] < m)
+        {
+            profit = profit + p[i];
+            m = m - w[i];
+        }
+        else
+        {
+            profit = profit + (float)m / w[i] * p[i];
+            break;
+        }
+    }
+
+    printf("\nMaximum profit using greedy knapsack is: %f", profit);
+}
