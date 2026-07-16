@@ -1,0 +1,40 @@
+#include<stdio.h>
+
+int cost[10][10];
+int visited[10];
+
+void main()
+{
+    int n, i, j, count = 1, u, v, min, mincost = 0;
+
+    printf("Prims Algorithm\n");
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    printf("Enter the adjacency matrix:\n");
+    for(i = 0; i < n; i++)
+        for(j = 0; j < n; j++)
+            scanf("%d", &cost[i][j]);
+
+    visited[0] = 1;
+
+    while(count < n)
+    {
+        min = 999;
+
+        for(i = 0; i < n; i++)
+            for(j = 0; j < n; j++)
+                if(cost[i][j] < min && i != j && visited[i] == 1 && visited[j] == 0)
+                {
+                    min = cost[i][j];
+                    u = i;
+                    v = j;
+                }
+
+        mincost += min;
+        visited[v] = 1;
+        count++;
+    }
+
+    printf("Minimum cost: %d\n", mincost);
+}
