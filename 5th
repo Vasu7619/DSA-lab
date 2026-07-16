@@ -1,0 +1,43 @@
+
+
+#include<stdio.h>
+
+void main(){
+
+int a[10][10],in[10]={0},v[10]={0};
+
+int n,i,j,k,c=0;
+
+printf("Topological Sort\n");
+
+printf("Enter no of vertices:\n");
+
+scanf("%d",&n);
+
+printf("Enter adjacency matrix:\n");
+
+for(i=0;i<n;i++)
+
+for(j=0;j<n;j++) {
+
+scanf("%d",&a[i][j]);
+
+if(a[i][j]) in[j]++; }
+
+printf("Topological Order:\n");
+
+while(c<n) {
+
+for(i=0;i<n;i++)
+
+if(in[i]==0 && !v[i]) {
+
+printf("%d ",i);
+
+v[i]=1;
+
+for(k=0;k<n;k++)
+
+if(a[i][k]) in[k]--;
+
+c++;}}}
